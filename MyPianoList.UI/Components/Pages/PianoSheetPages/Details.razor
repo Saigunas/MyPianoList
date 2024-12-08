@@ -1,0 +1,51 @@
+﻿@page "/pianosheets/details"
+@using Microsoft.EntityFrameworkCore
+@using MyPianoList.Application.Interfaces
+@using MyPianoList.Infrastructure
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using MyPianoList.Domain
+
+@inject IPianoSheetService PianoSheetService
+@inject NavigationManager NavigationManager
+
+<PageTitle>Details</PageTitle>
+
+<h1>Details</h1>
+
+<div>
+    <h2>PianoSheet</h2>
+    <hr />
+    @if (pianosheet is null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else {
+        <dl class="row">
+            <dt class="col-sm-2">Title</dt>
+            <dd class="col-sm-10">@pianosheet.Title</dd>
+            <dt class="col-sm-2">Composer</dt>
+            <dd class="col-sm-10">@pianosheet.Composer</dd>
+        </dl>
+        <div>
+            <a href="@($"/pianosheets/edit?id={pianosheet.Id}")">Edit</a> |
+            <a href="@($"/pianosheets")">Back to List</a>
+        </div>
+    }
+</div>
+
+@code {
+    private PianoSheet? pianosheet;
+
+    [SupplyParameterFromQuery]
+    private int Id { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        pianosheet = await PianoSheetService.GetByIdAsync(Id);
+
+        if (pianosheet is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+}

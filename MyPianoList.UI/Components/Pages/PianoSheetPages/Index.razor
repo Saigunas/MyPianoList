@@ -1,0 +1,36 @@
+﻿@page "/pianosheets"
+@using Microsoft.EntityFrameworkCore
+@using Microsoft.AspNetCore.Components.QuickGrid 
+@using MyPianoList.Application.Interfaces
+@using MyPianoList.Domain
+@using MyPianoList.Infrastructure
+
+@inject IPianoSheetService PianoSheetService
+
+<PageTitle>Index</PageTitle>
+
+<h1>Index</h1>
+
+<p>
+    <a href="pianosheets/create">Create New</a>
+</p>
+
+<QuickGrid Class="table" Items="pianoSheets">
+    <PropertyColumn Property="pianosheet => pianosheet.Title" />
+    <PropertyColumn Property="pianosheet => pianosheet.Composer" />
+
+    <TemplateColumn Context="pianosheet">
+        <a href="@($"pianosheets/edit?id={pianosheet.Id}")">Edit</a> |
+        <a href="@($"pianosheets/details?id={pianosheet.Id}")">Details</a> |
+        <a href="@($"pianosheets/delete?id={pianosheet.Id}")">Delete</a>
+    </TemplateColumn>
+</QuickGrid>
+
+@code {
+    IQueryable<PianoSheet>? pianoSheets = null;
+
+    protected override void OnInitialized()
+    {
+        pianoSheets = PianoSheetService.GetAll().AsQueryable();
+    }
+}

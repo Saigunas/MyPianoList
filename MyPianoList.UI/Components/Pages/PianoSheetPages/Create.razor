@@ -1,0 +1,51 @@
+﻿@page "/pianosheets/create"
+@using Microsoft.EntityFrameworkCore
+@using MyPianoList.Application.Interfaces
+@using MyPianoList.Infrastructure
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using MyPianoList.Domain
+
+@inject IPianoSheetService PianoSheetService
+@inject NavigationManager NavigationManager
+
+<PageTitle>Create</PageTitle>
+
+<h1>Create</h1>
+
+<h2>PianoSheet</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <EditForm method="post" Model="PianoSheet" OnValidSubmit="AddPianoSheet" FormName="create" Enhance>
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger" role="alert"/>
+            <div class="mb-3">
+                <label for="title" class="form-label">Title:</label> 
+                <InputText id="title" @bind-Value="PianoSheet.Title" class="form-control" /> 
+                <ValidationMessage For="() => PianoSheet.Title" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="composer" class="form-label">Composer:</label> 
+                <InputText id="composer" @bind-Value="PianoSheet.Composer" class="form-control" /> 
+                <ValidationMessage For="() => PianoSheet.Composer" class="text-danger" /> 
+            </div>        
+            <button type="submit" class="btn btn-primary">Create</button>
+        </EditForm>
+    </div>
+</div>
+
+<div>
+    <a href="/pianosheets">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromForm]
+    private PianoSheet PianoSheet { get; set; } = new();
+
+    // To protect from overposting attacks, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task AddPianoSheet()
+    {
+        await PianoSheetService.CreateAsync(PianoSheet);
+        NavigationManager.NavigateTo("/pianosheets");
+    }
+}

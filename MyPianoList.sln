@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35312.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyPianoList.UI", "MyPianoList.UI\MyPianoList.UI.csproj", "{F67CA2EA-7387-4D7F-BFC0-3CD8EA544C9A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A751A6BE-703A-4829-A628-A3A4C581332C} = {A751A6BE-703A-4829-A628-A3A4C581332C}
+		{A81C173C-D5AA-46F1-91C9-C1B8E05164A0} = {A81C173C-D5AA-46F1-91C9-C1B8E05164A0}
+		{DF5DB378-ABD0-4EBF-883C-23EB00E90EA8} = {DF5DB378-ABD0-4EBF-883C-23EB00E90EA8}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyPianoList.Domain", "MyPianoList.Domain\MyPianoList.Domain.csproj", "{A81C173C-D5AA-46F1-91C9-C1B8E05164A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyPianoList.Infrastructure", "MyPianoList.Infrastructure\MyPianoList.Infrastructure.csproj", "{DF5DB378-ABD0-4EBF-883C-23EB00E90EA8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A81C173C-D5AA-46F1-91C9-C1B8E05164A0} = {A81C173C-D5AA-46F1-91C9-C1B8E05164A0}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyPianoList.Application", "MyPianoList.Application\MyPianoList.Application.csproj", "{A751A6BE-703A-4829-A628-A3A4C581332C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F67CA2EA-7387-4D7F-BFC0-3CD8EA544C9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F67CA2EA-7387-4D7F-BFC0-3CD8EA544C9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F67CA2EA-7387-4D7F-BFC0-3CD8EA544C9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F67CA2EA-7387-4D7F-BFC0-3CD8EA544C9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A81C173C-D5AA-46F1-91C9-C1B8E05164A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A81C173C-D5AA-46F1-91C9-C1B8E05164A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A81C173C-D5AA-46F1-91C9-C1B8E05164A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A81C173C-D5AA-46F1-91C9-C1B8E05164A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF5DB378-ABD0-4EBF-883C-23EB00E90EA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF5DB378-ABD0-4EBF-883C-23EB00E90EA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF5DB378-ABD0-4EBF-883C-23EB00E90EA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF5DB378-ABD0-4EBF-883C-23EB00E90EA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A751A6BE-703A-4829-A628-A3A4C581332C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A751A6BE-703A-4829-A628-A3A4C581332C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A751A6BE-703A-4829-A628-A3A4C581332C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A751A6BE-703A-4829-A628-A3A4C581332C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {04F8313E-831C-4E04-AEEE-E56D546D2DEA}
+	EndGlobalSection
+EndGlobal
