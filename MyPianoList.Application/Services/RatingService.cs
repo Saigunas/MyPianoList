@@ -9,23 +9,23 @@ using System.Threading.Tasks;
 
 namespace MyPianoList.Application.Services
 {
-    public class TagService : ITagService
+    public class RatingService : IRatingService
     {
-        private readonly ITagRepository _tagRepository;
+        private readonly IRatingRepository _ratingRepository;
 
-        public TagService(ITagRepository tagRepository)
+        public RatingService(IRatingRepository ratingRepository)
         {
-            _tagRepository = tagRepository;
+            _ratingRepository = ratingRepository;
         }
-        public IEnumerable<Tag> GetAll()
+        public IEnumerable<Rating> GetAll()
         {
-            var tags = _tagRepository.GetAll();
-            return tags;
+            var ratings = _ratingRepository.GetAll();
+            return ratings;
         }
 
-        public async Task<Tag> GetByIdAsync(int id)
+        public async Task<Rating> GetByIdAsync(int id)
         {
-            var task = (await _tagRepository.GetByIdAsync(id));
+            var task = (await _ratingRepository.GetByIdAsync(id));
             if (task == null)
             {
                 throw new KeyNotFoundException();
@@ -33,31 +33,31 @@ namespace MyPianoList.Application.Services
             return task;
         }
 
-        public async Task CreateAsync(Tag tag)
+        public async Task CreateAsync(Rating rating)
         {
-            await _tagRepository.AddAsync(tag);
-            await _tagRepository.SaveAsync();
+            await _ratingRepository.AddAsync(rating);
+            await _ratingRepository.SaveAsync();
             return;
         }
 
-        public async Task<Tag> UpdateAsync(int id, Tag tag)
+        public async Task<Rating> UpdateAsync(int id, Rating rating)
         {
 
-            var isUpdated = await _tagRepository.UpdateAsync(id, tag);
+            var isUpdated = await _ratingRepository.UpdateAsync(id, rating);
             if (!isUpdated)
             {
                 throw new KeyNotFoundException();
             }
 
-            await _tagRepository.SaveAsync();
+            await _ratingRepository.SaveAsync();
 
-            return tag;
+            return rating;
         }
 
         public async Task RemoveByIdAsync(int id)
         {
-            await _tagRepository.RemoveByIdAsync(id);
-            await _tagRepository.SaveAsync();
+            await _ratingRepository.RemoveByIdAsync(id);
+            await _ratingRepository.SaveAsync();
         }
     }
 }

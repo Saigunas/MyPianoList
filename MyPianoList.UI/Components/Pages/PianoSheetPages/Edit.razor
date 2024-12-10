@@ -36,6 +36,11 @@ else
                     <InputText id="composer" @bind-Value="PianoSheet.Composer" class="form-control" />
                     <ValidationMessage For="() => PianoSheet.Composer" class="text-danger" />
                 </div>
+                <div class="mb-3">
+                    <label for="composer" class="form-label">URL (musescore or imslp):</label>
+                    <InputText id="composer" @bind-Value="PianoSheet.Url" class="form-control" />
+                    <ValidationMessage For="() => PianoSheet.Url" class="text-danger" />
+                </div>
                 <button type="submit" class="btn btn-primary">Save</button>
             </EditForm>
         </div>

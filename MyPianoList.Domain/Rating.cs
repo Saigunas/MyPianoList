@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MyPianoList.Domain.AuthorizationModels;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyPianoList.Domain;
 
@@ -13,17 +15,18 @@ public class Rating
     public int Id { get; set; }
 
     [Required]
-    public int UserId { get; set; } // Foreign key to User
+    [ForeignKey("ApplicationUser")]
+    public string UserId { get; set; }
 
     [Required]
-    public int SheetId { get; set; } // Foreign key to PianoSheet
+    [ForeignKey("PianoSheet")]
+    public int PianoSheetId { get; set; }
 
     [Required]
     [EnumDataType(typeof(RatingType))]
     public RatingType RatingValue { get; set; }
 
-    [Required]
-    public DateTime RatingDate { get; set; }
-
-    public PianoSheet PianoSheet { get; set; }
+    // Virtual enables lazy loading
+    public virtual ApplicationUser ApplicationUser { get; set; }
+    public virtual PianoSheet PianoSheet { get; set; }
 }

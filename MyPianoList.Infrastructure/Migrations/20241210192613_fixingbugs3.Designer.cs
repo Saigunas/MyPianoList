@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyPianoList.Infrastructure;
 
@@ -11,9 +12,11 @@ using MyPianoList.Infrastructure;
 namespace MyPianoList.UI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241210192613_fixingbugs3")]
+    partial class fixingbugs3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -257,6 +260,9 @@ namespace MyPianoList.UI.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("PianoSheetId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SheetId")
                         .HasColumnType("int")
                         .HasColumnOrder(1);
 
@@ -284,18 +290,21 @@ namespace MyPianoList.UI.Migrations
                     b.Property<int>("PianoSheetId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("RatingDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("RatingValue")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("SheetId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("PianoSheetId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Rating");
                 });
@@ -311,18 +320,18 @@ namespace MyPianoList.UI.Migrations
                     b.Property<int>("PianoSheetId")
                         .HasColumnType("int");
 
+                    b.Property<int>("SheetId")
+                        .HasColumnType("int");
+
                     b.Property<int>("SheetStatus")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("PianoSheetId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Status");
                 });
@@ -422,14 +431,6 @@ namespace MyPianoList.UI.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MyPianoList.Domain.AuthorizationModels.ApplicationUser", "ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ApplicationUser");
-
                     b.Navigation("PianoSheet");
                 });
 
@@ -440,14 +441,6 @@ namespace MyPianoList.UI.Migrations
                         .HasForeignKey("PianoSheetId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("MyPianoList.Domain.AuthorizationModels.ApplicationUser", "ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ApplicationUser");
 
                     b.Navigation("PianoSheet");
                 });

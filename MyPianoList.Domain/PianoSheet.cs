@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyPianoList.Domain;
 
@@ -7,20 +8,19 @@ public class PianoSheet
 {
     public int Id { get; set; }
     [Required]
-    [MaxLength(255)]
+    [Column(TypeName = "NVARCHAR(200)")]
     public string Title { get; set; }
 
-    [Range(0, double.MaxValue)]
-    public decimal Rating { get; set; } = 0;
+    public int Rating { get; set; } = 0;
 
     [Required]
-    [MaxLength(2083)] // Standard max length for URLs
+    [Column(TypeName = "NVARCHAR(2000)")]
     [Url]
     [RegularExpression(@"^(https?:\/\/)?(www\.)?(imslp\.org|musescore\.com)\/.*$", ErrorMessage = "Url must be from imslp.org or musescore.com.")]
     public string Url { get; set; }
 
     [Required]
-    [MaxLength(255)]
+    [Column(TypeName = "NVARCHAR(200)")]
     public string Composer { get; set; }
 
     public ICollection<PianoSheetTag> PianoSheetTags { get; set; } = new List<PianoSheetTag>();

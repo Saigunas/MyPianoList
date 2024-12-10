@@ -18,17 +18,22 @@
     <div class="col-md-4">
         <EditForm method="post" Model="PianoSheet" OnValidSubmit="AddPianoSheet" FormName="create" Enhance>
             <DataAnnotationsValidator />
-            <ValidationSummary class="text-danger" role="alert"/>
+            <ValidationSummary class="text-danger" role="alert" />
             <div class="mb-3">
-                <label for="title" class="form-label">Title:</label> 
-                <InputText id="title" @bind-Value="PianoSheet.Title" class="form-control" /> 
-                <ValidationMessage For="() => PianoSheet.Title" class="text-danger" /> 
-            </div>        
+                <label for="title" class="form-label">Title:</label>
+                <InputText id="title" @bind-Value="PianoSheet.Title" class="form-control" />
+                <ValidationMessage For="() => PianoSheet.Title" class="text-danger" />
+            </div>
             <div class="mb-3">
-                <label for="composer" class="form-label">Composer:</label> 
-                <InputText id="composer" @bind-Value="PianoSheet.Composer" class="form-control" /> 
-                <ValidationMessage For="() => PianoSheet.Composer" class="text-danger" /> 
-            </div>        
+                <label for="composer" class="form-label">Composer:</label>
+                <InputText id="composer" @bind-Value="PianoSheet.Composer" class="form-control" />
+                <ValidationMessage For="() => PianoSheet.Composer" class="text-danger" />
+            </div>
+            <div class="mb-3">
+                <label for="composer" class="form-label">URL (musescore or imslp):</label>
+                <InputText id="composer" @bind-Value="PianoSheet.Url" class="form-control" />
+                <ValidationMessage For="() => PianoSheet.Url" class="text-danger" />
+            </div>
             <button type="submit" class="btn btn-primary">Create</button>
         </EditForm>
     </div>

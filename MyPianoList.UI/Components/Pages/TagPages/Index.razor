@@ -1,0 +1,34 @@
+﻿@page "/tags"
+@using Microsoft.EntityFrameworkCore
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using MyPianoList.Application.Interfaces
+@using MyPianoList.Domain
+@using MyPianoList.Infrastructure
+@inject ITagService TagService
+
+<PageTitle>Index</PageTitle>
+
+<h1>Index</h1>
+
+<p>
+    <a href="tags/create">Create New</a>
+</p>
+
+<QuickGrid Class="table" Items="tags">
+    <PropertyColumn Property="tag => tag.TagName" />
+
+    <TemplateColumn Context="tag">
+        <a href="@($"tags/edit?id={tag.Id}")">Edit</a> |
+        <a href="@($"tags/details?id={tag.Id}")">Details</a> |
+        <a href="@($"tags/delete?id={tag.Id}")">Delete</a>
+    </TemplateColumn>
+</QuickGrid>
+
+@code {
+    IQueryable<Tag>? tags = null;
+
+    protected override void OnInitialized()
+    {
+        tags = TagService.GetAll().AsQueryable();
+    }
+}

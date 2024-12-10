@@ -1,18 +1,26 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MyPianoList.Domain.AuthorizationModels;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyPianoList.Domain;
 
 public class PianoSheetTag
 {
-    [Key]
-    [Column(Order = 1)]
-    public int SheetId { get; set; }
 
-    [Key]
+    public int Id { get; set; }
+
+    [Required]
+    [Column(Order = 1)]
+    [ForeignKey("PianoSheet")]
+    public int PianoSheetId { get; set; }
+
+    [Required]
     [Column(Order = 2)]
+    [ForeignKey("Tag")]
     public int TagId { get; set; }
 
-    public PianoSheet PianoSheet { get; set; }
-    public Tag Tag { get; set; }
+
+    // Virtual enables lazy loading
+    public virtual PianoSheet PianoSheet { get; set; }
+    public virtual Tag Tag { get; set; }
 }

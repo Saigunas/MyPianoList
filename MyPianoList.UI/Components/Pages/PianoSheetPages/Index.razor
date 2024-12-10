@@ -18,6 +18,7 @@
 <QuickGrid Class="table" Items="pianoSheets">
     <PropertyColumn Property="pianosheet => pianosheet.Title" />
     <PropertyColumn Property="pianosheet => pianosheet.Composer" />
+    <PropertyColumn Property="pianosheet => pianosheet.Url" />
 
     <TemplateColumn Context="pianosheet">
         <a href="@($"pianosheets/edit?id={pianosheet.Id}")">Edit</a> |
