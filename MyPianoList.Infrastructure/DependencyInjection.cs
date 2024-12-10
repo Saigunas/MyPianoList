@@ -23,6 +23,10 @@ namespace MyPianoList.Infrastructure
 
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<IPianoSheetRepository, PianoSheetRepository>();
+            services.AddScoped<ITagRepository, TagRepository>();
+            services.AddScoped<IPianoSheetTagRepository, PianoSheetTagRepository>();
+            services.AddScoped<IStatusRepository, StatusRepository>();
+            services.AddScoped<IRatingRepository, RatingRepository>();
 
             return services;
         }
