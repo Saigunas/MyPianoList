@@ -17,21 +17,6 @@ namespace MyPianoList.Application.Services
         {
             _ratingRepository = ratingRepository;
         }
-        public IEnumerable<Rating> GetAll()
-        {
-            var ratings = _ratingRepository.GetAll();
-            return ratings;
-        }
-
-        public async Task<Rating> GetByIdAsync(int id)
-        {
-            var task = (await _ratingRepository.GetByIdAsync(id));
-            if (task == null)
-            {
-                throw new KeyNotFoundException();
-            }
-            return task;
-        }
 
         public async Task CreateAsync(Rating rating)
         {

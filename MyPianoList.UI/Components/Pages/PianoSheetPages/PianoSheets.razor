@@ -23,8 +23,12 @@
             <th>Title</th>
             <th>Tags</th>
             <th>Current Rating</th>
-            <th>Add Your Rating</th>
-            <th>Status</th>
+            <AuthorizeView>
+                <Authorized>
+                <th>Add Your Rating</th>
+                <th>Status</th>
+                </Authorized>
+            </AuthorizeView>
         </tr>
     </thead>
     <tbody>
@@ -34,24 +38,28 @@
                 <td>@sheet.Title</td>
                 <td>@string.Join(", ", sheet.Tags)</td>
                 <td>@sheet.CurrentRating</td>
-                <td>
-                        <select @onchange="(e) => SubmitRating(sheet.Id, sheet.UserRating, e.Value)">
-                        <option value="">--Select--</option>
-                        @foreach (RatingType ratingType in Enum.GetValues(typeof(RatingType)))
-                        {
-                            <option value="@ratingType" selected="@(sheet.UserRating?.RatingValue == ratingType)">@ratingType</option>
-                        }
-                    </select>
-                </td>
-                <td>
-                        <select @onchange="(e) => SubmitStatus(sheet.Id, sheet.UserStatus, e.Value)">
-                        <option value="">--Select--</option>
-                        @foreach (SheetStatus status in Enum.GetValues(typeof(SheetStatus)))
-                        {
-                                <option value="@status" selected="@(sheet.UserStatus?.SheetStatus == status)">@status</option>
-                        }
-                    </select>
-                </td>
+                <AuthorizeView>
+                    <Authorized>
+                        <td>
+                                <select @onchange="(e) => SubmitRating(sheet.Id, sheet.UserRating, e.Value)">
+                                <option value="">--Select--</option>
+                                @foreach (RatingType ratingType in Enum.GetValues(typeof(RatingType)))
+                                {
+                                    <option value="@ratingType" selected="@(sheet.UserRating?.RatingValue == ratingType)">@ratingType</option>
+                                }
+                            </select>
+                        </td>
+                        <td>
+                                <select @onchange="(e) => SubmitStatus(sheet.Id, sheet.UserStatus, e.Value)">
+                                <option value="">--Select--</option>
+                                @foreach (SheetStatus status in Enum.GetValues(typeof(SheetStatus)))
+                                {
+                                        <option value="@status" selected="@(sheet.UserStatus?.SheetStatus == status)">@status</option>
+                                }
+                            </select>
+                        </td>
+                    </Authorized>
+                </AuthorizeView>
             </tr>
         }
     </tbody>

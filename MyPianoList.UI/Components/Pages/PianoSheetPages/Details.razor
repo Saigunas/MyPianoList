@@ -1,4 +1,5 @@
 ﻿@page "/pianosheets/details"
+@using Microsoft.AspNetCore.Authorization
 @using Microsoft.EntityFrameworkCore
 @using MyPianoList.Application.Interfaces
 @using MyPianoList.Infrastructure
@@ -7,6 +8,7 @@
 
 @inject IPianoSheetService PianoSheetService
 @inject NavigationManager NavigationManager
+@attribute [Authorize]
 
 <PageTitle>Details</PageTitle>
 

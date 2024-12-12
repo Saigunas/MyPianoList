@@ -18,23 +18,22 @@
             </NavLink>
         </div>
 
+
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="pianosheets">
                 <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Sheet Manager
             </NavLink>
         </div>
 
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="tags">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Tag Manager
-            </NavLink>
-        </div>
-
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="auth">
-                <span class="bi bi-lock-nav-menu" aria-hidden="true"></span> Auth Required
-            </NavLink>
-        </div>
+        <AuthorizeView Roles="Admin">
+            <Authorized>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="tags">
+                        <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Tag Manager
+                    </NavLink>
+                </div>
+            </Authorized>
+        </AuthorizeView>
 
         <AuthorizeView>
             <Authorized>

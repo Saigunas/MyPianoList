@@ -17,21 +17,6 @@ namespace MyPianoList.Application.Services
         {
             _statusRepository = statusRepository;
         }
-        public IEnumerable<Status> GetAll()
-        {
-            var statuss = _statusRepository.GetAll();
-            return statuss;
-        }
-
-        public async Task<Status> GetByIdAsync(int id)
-        {
-            var task = (await _statusRepository.GetByIdAsync(id));
-            if (task == null)
-            {
-                throw new KeyNotFoundException();
-            }
-            return task;
-        }
 
         public async Task CreateAsync(Status status)
         {

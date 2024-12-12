@@ -1,4 +1,5 @@
-﻿using MyPianoList.Application.Interfaces;
+﻿using MyPianoList.Application.Exceptions;
+using MyPianoList.Application.Interfaces;
 using MyPianoList.Domain;
 using MyPianoList.Infrastructure.DTOs;
 using MyPianoList.Infrastructure.Interfaces;
@@ -28,24 +29,32 @@ namespace MyPianoList.Application.Services
         public async Task<List<PianoSheetDetailsDto>> GetAllWithDetails(string userId)
         {
             var pianoSheets = await _pianoSheetRepository.GetPianoSheetsWithDetailsAsync(userId);
+            if (pianoSheets == null)
+            {
+                throw new NoRowsReturnedException();
+            }
             return pianoSheets;
         }
 
         public async Task<PianoSheet> GetByIdWithTagsAsync(int id)
         {
             var pianoSheets = await _pianoSheetRepository.GetByIdWithTagsAsync(id);
+            if (pianoSheets == null)
+            {
+                throw new IdNotFoundException();
+            }
             return pianoSheets;
         }
 
 
         public async Task<PianoSheet> GetByIdAsync(int id)
         {
-            var task = (await _pianoSheetRepository.GetByIdAsync(id));
-            if (task == null)
+            var pianoSheets = (await _pianoSheetRepository.GetByIdAsync(id));
+            if (pianoSheets == null)
             {
-                throw new KeyNotFoundException();
+                throw new IdNotFoundException();
             }
-            return task;
+            return pianoSheets;
         }
 
         public async Task CreateAsync(PianoSheet pianoSheet)
@@ -75,7 +84,11 @@ namespace MyPianoList.Application.Services
 
         public async Task RemoveByIdAsync(int id)
         {
-            await _pianoSheetRepository.RemoveByIdAsync(id);
+            var isEntityRemoved = await _pianoSheetRepository.RemoveByIdAsync(id);
+            if(!isEntityRemoved)
+            {
+                throw new FailedToRemoveRowsException();
+            }
             await _pianoSheetRepository.SaveAsync();
         }
     }

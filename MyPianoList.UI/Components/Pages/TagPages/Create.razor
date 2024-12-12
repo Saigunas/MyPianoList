@@ -1,10 +1,13 @@
 ﻿@page "/tags/create"
+@using Microsoft.AspNetCore.Authorization
 @using Microsoft.EntityFrameworkCore
 @using MyPianoList.Application.Interfaces
 @using MyPianoList.Domain
 
 @inject ITagService TagService
 @inject NavigationManager NavigationManager
+
+@attribute [Authorize(Roles = "Admin")]
 
 <PageTitle>Create</PageTitle>
 
