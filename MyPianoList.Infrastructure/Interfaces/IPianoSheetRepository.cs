@@ -1,4 +1,5 @@
 ﻿using MyPianoList.Domain;
+using MyPianoList.Infrastructure.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,5 +10,7 @@ namespace MyPianoList.Infrastructure.Interfaces
 {
     public interface IPianoSheetRepository : IRepository<PianoSheet>
     {
+        Task<List<PianoSheetDetailsDto>> GetPianoSheetsWithDetailsAsync(string userId);
+        Task<PianoSheet?> GetByIdWithTagsAsync(int id);
     }
 }

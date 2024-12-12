@@ -13,6 +13,7 @@ namespace MyPianoList.Infrastructure.Interfaces
     public interface IRepository<T> where T : class
     {
         Task<T> AddAsync(T entity);
+        Task<T> AddAndSaveAsync(T entity);
         Task<bool> UpdateAsync(object id, T entity);
 
         Task<bool> RemoveByIdAsync(object id);

@@ -1,6 +1,11 @@
-﻿namespace MyPianoList.Application.Interfaces
+﻿using MyPianoList.Domain;
+
+namespace MyPianoList.Application.Interfaces
 {
     public interface IRatingService
     {
+        Task CreateAsync(Rating rating);
+        Task<Rating> UpdateAsync(int id, Rating rating);
+        Task RemoveByIdAsync(int id);
     }
 }

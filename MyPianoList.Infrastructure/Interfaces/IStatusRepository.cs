@@ -2,7 +2,7 @@
 
 namespace MyPianoList.Infrastructure.Interfaces
 {
-    public interface IPianoSheetTagRepository : IRepository<PianoSheetTag>
+    public interface IStatusRepository : IRepository<Status>
     {
     }
 }

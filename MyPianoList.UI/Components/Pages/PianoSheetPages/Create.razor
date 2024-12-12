@@ -1,12 +1,21 @@
 ﻿@page "/pianosheets/create"
 @using Microsoft.EntityFrameworkCore
+@using MudBlazor
 @using MyPianoList.Application.Interfaces
 @using MyPianoList.Infrastructure
 @using Microsoft.AspNetCore.Components.QuickGrid
 @using MyPianoList.Domain
 
+@rendermode InteractiveServer
+
+@inject ITagService TagService
+@inject IPianoSheetTagService PianoSheetTagService
 @inject IPianoSheetService PianoSheetService
 @inject NavigationManager NavigationManager
+
+<MudThemeProvider />
+<MudPopoverProvider />
+
 
 <PageTitle>Create</PageTitle>
 
@@ -34,6 +43,14 @@
                 <InputText id="composer" @bind-Value="PianoSheet.Url" class="form-control" />
                 <ValidationMessage For="() => PianoSheet.Url" class="text-danger" />
             </div>
+
+            <MudSelect T="int" Label="Tags" MultiSelection="true" @bind-SelectedValues="SelectedTagIds">
+                @foreach (var tag in Tags)
+                {
+                    <MudSelectItem T="int" Value="@tag.Id">@tag.TagName</MudSelectItem>
+                }
+            </MudSelect>
+
             <button type="submit" class="btn btn-primary">Create</button>
         </EditForm>
     </div>
@@ -47,10 +64,21 @@
     [SupplyParameterFromForm]
     private PianoSheet PianoSheet { get; set; } = new();
 
+    private List<Tag> Tags { get; set; } = new List<Tag>();
+    private IEnumerable<int> SelectedTagIds { get; set; } = new HashSet<int>() { };
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        Tags = TagService.GetAll().ToList();
+    }
+
     // To protect from overposting attacks, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
     private async Task AddPianoSheet()
     {
-        await PianoSheetService.CreateAsync(PianoSheet);
+        PianoSheet createdItem = await PianoSheetService.CreateAndSaveAsync(PianoSheet);
+        await PianoSheetTagService.SetPianoSheetTags(createdItem.Id, SelectedTagIds);
+
         NavigationManager.NavigateTo("/pianosheets");
     }
 }

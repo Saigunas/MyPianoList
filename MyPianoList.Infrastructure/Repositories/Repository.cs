@@ -40,6 +40,13 @@ namespace MyPianoList.Infrastructure.Repositories
             return entity;
         }
 
+        public async Task<T> AddAndSaveAsync(T entity)
+        {
+            await Entities.AddAsync(entity);
+            await _context.SaveChangesAsync();
+            return entity;
+        }
+
         public async Task<bool> UpdateAsync(object id, T entity)
         {
             T? exist = await Entities.FindAsync(id);

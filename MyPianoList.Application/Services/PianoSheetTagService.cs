@@ -23,6 +23,11 @@ namespace MyPianoList.Application.Services
             return pianoSheetTags;
         }
 
+        public async Task SetPianoSheetTags(int pianoSheetId, IEnumerable<int> tagIds)
+        {
+            await _pianoSheetTagRepository.SetPianoSheetTags(pianoSheetId, tagIds);
+        }
+
         public async Task<PianoSheetTag> GetByIdAsync(int id)
         {
             var task = (await _pianoSheetTagRepository.GetByIdAsync(id));

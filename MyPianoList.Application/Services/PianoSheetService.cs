@@ -1,5 +1,6 @@
 ﻿using MyPianoList.Application.Interfaces;
 using MyPianoList.Domain;
+using MyPianoList.Infrastructure.DTOs;
 using MyPianoList.Infrastructure.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,20 @@ namespace MyPianoList.Application.Services
             return pianoSheets;
         }
 
+
+        public async Task<List<PianoSheetDetailsDto>> GetAllWithDetails(string userId)
+        {
+            var pianoSheets = await _pianoSheetRepository.GetPianoSheetsWithDetailsAsync(userId);
+            return pianoSheets;
+        }
+
+        public async Task<PianoSheet> GetByIdWithTagsAsync(int id)
+        {
+            var pianoSheets = await _pianoSheetRepository.GetByIdWithTagsAsync(id);
+            return pianoSheets;
+        }
+
+
         public async Task<PianoSheet> GetByIdAsync(int id)
         {
             var task = (await _pianoSheetRepository.GetByIdAsync(id));
@@ -38,6 +53,10 @@ namespace MyPianoList.Application.Services
             await _pianoSheetRepository.AddAsync(pianoSheet);
             await _pianoSheetRepository.SaveAsync();
             return;
+        }
+        public async Task<PianoSheet> CreateAndSaveAsync(PianoSheet pianoSheet)
+        {
+            return await _pianoSheetRepository.AddAndSaveAsync(pianoSheet);
         }
 
         public async Task<PianoSheet> UpdateAsync(int id, PianoSheet pianoSheet)
