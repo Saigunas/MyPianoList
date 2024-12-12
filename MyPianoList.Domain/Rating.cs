@@ -27,6 +27,8 @@ public class Rating
     public RatingType RatingValue { get; set; }
 
     // Virtual enables lazy loading
+    [Required]
     public virtual ApplicationUser ApplicationUser { get; set; }
+    [Required]
     public virtual PianoSheet PianoSheet { get; set; }
 }

@@ -27,6 +27,8 @@ public class Status
     public SheetStatus SheetStatus { get; set; }
 
     // Virtual enables lazy loading
+    [Required]
     public virtual ApplicationUser ApplicationUser { get; set; }
+    [Required]
     public virtual PianoSheet PianoSheet { get; set; }
 }

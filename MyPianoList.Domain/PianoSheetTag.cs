@@ -21,6 +21,8 @@ public class PianoSheetTag
 
 
     // Virtual enables lazy loading
+    [Required]
     public virtual PianoSheet PianoSheet { get; set; }
+    [Required]
     public virtual Tag Tag { get; set; }
 }
