@@ -20,10 +20,14 @@ namespace MyPianoList.Infrastructure.Repositories
 
         public async Task<double> GetTotalLikeDislikeRatioAsync()
         {
-            return await (from rating in _context.Rating
-                          group rating by rating.PianoSheetId into sheetRatings
-                          select sheetRatings.Average(r => r.RatingValue == RatingType.Like ? 1 : -1))
-                         .AverageAsync();
+            var averageRating = await (
+                from rating in _context.Rating
+                group rating by rating.PianoSheetId into sheetRatings
+                select sheetRatings.Average(r => r.RatingValue == RatingType.Like ? 1 : -1)
+            ).AverageAsync(x => (double?)x) ?? 0;
+
+            return averageRating;
+
         }
 
         public async Task<double> GetMaxLikeDislikeRatioAsync()
@@ -31,7 +35,7 @@ namespace MyPianoList.Infrastructure.Repositories
             return await (from rating in _context.Rating
                           group rating by rating.PianoSheetId into sheetRatings
                           select sheetRatings.Average(r => r.RatingValue == RatingType.Like ? 1 : -1))
-                         .MaxAsync();
+                         .MaxAsync(x => (double?)x) ?? 0;
         }
 
     }
