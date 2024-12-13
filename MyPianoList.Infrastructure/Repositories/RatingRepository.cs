@@ -17,5 +17,22 @@ namespace MyPianoList.Infrastructure.Repositories
             _context = context;
         }
 
+
+        public async Task<double> GetTotalLikeDislikeRatioAsync()
+        {
+            return await (from rating in _context.Rating
+                          group rating by rating.PianoSheetId into sheetRatings
+                          select sheetRatings.Average(r => r.RatingValue == RatingType.Like ? 1 : -1))
+                         .AverageAsync();
+        }
+
+        public async Task<double> GetMaxLikeDislikeRatioAsync()
+        {
+            return await (from rating in _context.Rating
+                          group rating by rating.PianoSheetId into sheetRatings
+                          select sheetRatings.Average(r => r.RatingValue == RatingType.Like ? 1 : -1))
+                         .MaxAsync();
+        }
+
     }
 }

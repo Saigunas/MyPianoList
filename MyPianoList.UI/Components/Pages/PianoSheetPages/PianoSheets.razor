@@ -12,11 +12,13 @@
 @inject IStatusService StatusService
 @inject AuthenticationStateProvider _authenticationStateProvider
 
-<h3>Editable Piano Sheets Grid</h3>
+<h3>Piano Sheet List</h3>
 
 @if (PianoSheetList != null && PianoSheetList.Any())
 {
-    
+    <p>Total Like/Dislike ratio @ratingRatio</p>
+    <p>Top Like/Dislike ratio @maxRatingRatio</p>
+
 <table class="table table-striped">
     <thead>
         <tr>
@@ -74,11 +76,15 @@ else
     public List<PianoSheetDetailsDto> PianoSheetList { get; set; } = new List<PianoSheetDetailsDto>();
 
     private string? userId = "";
+    private double ratingRatio = 0;
+    private double maxRatingRatio = 0;
 
     protected override async Task OnInitializedAsync()
     {
         userId = await getUserId();
         PianoSheetList = await PianoSheetService.GetAllWithDetails(userId);
+        ratingRatio = await RatingService.GetTotalLikeDislikeRatioAsync();
+        maxRatingRatio = await RatingService.GetMaxLikeDislikeRatioAsync();
     }
 
     async Task<string> getUserId()

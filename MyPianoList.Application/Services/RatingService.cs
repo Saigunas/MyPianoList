@@ -1,4 +1,5 @@
-﻿using MyPianoList.Application.Interfaces;
+﻿using Microsoft.Identity.Client;
+using MyPianoList.Application.Interfaces;
 using MyPianoList.Domain;
 using MyPianoList.Infrastructure.Interfaces;
 using System;
@@ -44,5 +45,16 @@ namespace MyPianoList.Application.Services
             await _ratingRepository.RemoveByIdAsync(id);
             await _ratingRepository.SaveAsync();
         }
+
+        public async Task<double> GetTotalLikeDislikeRatioAsync()
+        {
+            return await _ratingRepository.GetTotalLikeDislikeRatioAsync();
+        }
+
+        public async Task<double> GetMaxLikeDislikeRatioAsync()
+        {
+            return await _ratingRepository.GetMaxLikeDislikeRatioAsync();
+        }
+        
     }
 }

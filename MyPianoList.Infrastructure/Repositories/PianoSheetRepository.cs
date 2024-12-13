@@ -41,6 +41,7 @@ namespace MyPianoList.Infrastructure.Repositories
                         .Where(status => status.UserId == userId)
                         .First()
                 })
+                .OrderByDescending(sheet => sheet.CurrentRating)
                 .ToListAsync();
         }
 
